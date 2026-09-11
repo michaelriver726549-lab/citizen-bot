@@ -1,1 +1,297 @@
-aW1wb3J0IG9zLCBqc29uLCBsb2dnaW5nLCByZXF1ZXN0cywgZGF0ZXRpbWUsIHJhbmRvbSwgc3RyaW5nLCByZQpmcm9tIHRlbGVncmFtIGltcG9ydCBVcGRhdGUsIElubGluZUtleWJvYXJkQnV0dG9uLCBJbmxpbmVLZXlib2FyZE1hcmt1cApmcm9tIHRlbGVncmFtLmV4dCBpbXBvcnQgQXBwbGljYXRpb24sIENvbW1hbmRIYW5kbGVyLCBNZXNzYWdlSGFuZGxlciwgQ2FsbGJhY2tRdWVyeUhhbmRsZXIsIENvbnRleHRUeXBlcywgZmlsdGVycwoKbG9nZ2luZy5iYXNpY0NvbmZpZyhsZXZlbD1sb2dnaW5nLklORk8pCmxvZ2dlciA9IGxvZ2dpbmcuZ2V0TG9nZ2VyKF9fbmFtZV9fKQoKVE9LRU4gPSBvcy5lbnZpcm9uWyJURUxFR1JBTV9UT0tFTiJdLnN0cmlwKCkKS0VZID0gb3MuZW52aXJvblsiR0VNSU5JX0FQSV9LRVkiXS5zdHJpcCgpCkFETUlOX0NIQVRfSUQgPSBvcy5lbnZpcm9uLmdldCgiQURNSU5fQ0hBVF9JRCIsICIiKS5zdHJpcCgpCkdFTUlOSV9VUkwgPSAiaHR0cHM6Ly9nZW5lcmF0aXZlbGFuZ3VhZ2UuZ29vZ2xlYXBpcy5jb20vdjFiZXRhL21vZGVscy9nZW1pbmktMy42LWZsYXNoOmdlbmVyYXRlQ29udGVudD9rZXk9IiArIEtFWQoKc3VibWlzc2lvbnMgPSB7fQp1c2VyX3N1Ym1pc3Npb25zID0ge30Kc3RhdGVzID0ge30KCkNBVEVHT1JZX01BUCA9IHsKICAgICJjYXRfY29tcGxhaW50IjogIti02qnYp9uM2KogLyDZhdi02qnZhCIsCiAgICAiY2F0X3N1Z2dlc3Rpb24iOiAi2b7bjNi02YbZh9in2K8iLAogICAgImNhdF9pZGVhIjogItin24zYr9mHIiwKICAgICJjYXRfb3BpbmlvbiI6ICLZhti42LEg2LnZhdmI2YXbjCIKfQoKQ0FURUdPUllfRU1PSkkgPSB7CiAgICAiY2F0X2NvbXBsYWludCI6ICLinYwiLAogICAgImNhdF9zdWdnZXN0aW9uIjogIvCfkqEiLAogICAgImNhdF9pZGVhIjogIvCfmoAiLAogICAgImNhdF9vcGluaW9uIjogIvCfkqwiCn0KClNUQVRVU19NQVAgPSB7CiAgICAicmVjZWl2ZWQiOiAi2K/YsduM2KfZgdiqINi02K8iLAogICAgImFuYWx5emluZyI6ICLYr9ixINit2KfZhCDYqtit2YTbjNmEIiwKICAgICJzZW50IjogItin2LHYs9in2YQg2LTYryDYqNmHINiz2KfYstmF2KfZhiIsCiAgICAicmV2aWV3aW5nIjogItiv2LEg2K3Yp9mEINio2LHYsdiz24wiLAogICAgInJlc29sdmVkIjogItit2YQg2LTYr9mHIiwKICAgICJyZWplY3RlZCI6ICLYsdivINi02K/ZhyIKfQoKZGVmIGdlbl9jb2RlKCk6CiAgICByZXR1cm4gIiIuam9pbihyYW5kb20uY2hvaWNlcyhzdHJpbmcuYXNjaWlfdXBwZXJjYXNlICsgc3RyaW5nLmRpZ2l0cywgaz04KSkKCmRlZiBnZXRfc3RhdGUodWlkKToKICAgIHJldHVybiBzdGF0ZXMuZ2V0KHVpZCwgeyJzdGVwIjogTm9uZSwgImRhdGEiOiB7fX0pCgpkZWYgc2V0X3N0YXRlKHVpZCwgc3RlcCwgZGF0YT1Ob25lKToKICAgIHN0YXRlc1t1aWRdID0geyJzdGVwIjogc3RlcCwgImRhdGEiOiBkYXRhIG9yIHt9fQoKZGVmIGNsZWFyX3N0YXRlKHVpZCk6CiAgICBzdGF0ZXMucG9wKHVpZCwgTm9uZSkKCmRlZiBtYWluX2tiKCk6CiAgICByZXR1cm4gSW5saW5lS2V5Ym9hcmRNYXJrdXAoWwogICAgICAgIFtJbmxpbmVLZXlib2FyZEJ1dHRvbigi8J+TnSDYq9io2Kog2YXYtNqp2YQg2KzYr9uM2K8iLCBjYWxsYmFja19kYXRhPSJuZXdfaXNzdWUiKV0sCiAgICAgICAgW0lubGluZUtleWJvYXJkQnV0dG9uKCLwn5OMINm+24zar9uM2LHbjCDYr9ix2K7ZiNin2LPYquKAjNmH2KciLCBjYWxsYmFja19kYXRhPSJ0cmFjayIpXQogICAgXSkKCmRlZiBjYXRlZ29yeV9rYigpOgogICAgcmV0dXJuIElubGluZUtleWJvYXJkTWFya3VwKFsKICAgICAgICBbSW5saW5lS2V5Ym9hcmRCdXR0b24oIuKdjCDYtNqp2KfbjNiqIC8g2YXYtNqp2YQiLCBjYWxsYmFja19kYXRhPSJjYXRfY29tcGxhaW50IildLAogICAgICAgIFtJbmxpbmVLZXlib2FyZEJ1dHRvbigi8J+SoSDZvtuM2LTZhtmH2KfYryIsIGNhbGxiYWNrX2RhdGE9ImNhdF9zdWdnZXN0aW9uIildLAogICAgICAgIFtJbmxpbmVLZXlib2FyZEJ1dHRvbigi8J+agCDYp9uM2K/ZhyIsIGNhbGxiYWNrX2RhdGE9ImNhdF9pZGVhIildLAogICAgICAgIFtJbmxpbmVLZXlib2FyZEJ1dHRvbigi8J+SrCDZhti42LEg2LnZhdmI2YXbjCIsIGNhbGxiYWNrX2RhdGE9ImNhdF9vcGluaW9uIildLAogICAgICAgIFtJbmxpbmVLZXlib2FyZEJ1dHRvbigi8J+PoCDZhdmG2Ygg2KfYtdmE24wiLCBjYWxsYmFja19kYXRhPSJtYWluX21lbnUiKV0KICAgIF0pCgpkZWYgYmFja19rYigpOgogICAgcmV0dXJuIElubGluZUtleWJvYXJkTWFya3VwKFtbSW5saW5lS2V5Ym9hcmRCdXR0b24oIvCfj6Ag2YXZhtmIINin2LXZhNuMIiwgY2FsbGJhY2tfZGF0YT0ibWFpbl9tZW51IildXSkKCldFTENPTUUgPSAoCiAgICAi2KjZhyDYs9in2YXYp9mG2Ycg2KfYsdiq2KjYp9i3INmF2LHYr9mF24wg2K7ZiNi0INii2YXYr9uM2K8g8J+Pm1xuXG4iCiAgICAi2KfYsiDYt9ix24zZgiDYp9uM2YYg2LPYp9mF2KfZhtmHINmF24zigIzYqtmI2KfZhtuM2K86XG4iCiAgICAi2YXYtNqp2YTYp9iqINmIINi02qnYp9uM2KfYqiDYsdinINqv2LLYp9ix2LQg2K/Zh9uM2K9cbiIKICAgICLZvtuM2LTZhtmH2KfYr9in2Kog2Ygg2KfbjNiv2YfigIzZh9in24wg2K7ZiNivINix2Kcg2KvYqNiqINqp2YbbjNivXG4iCiAgICAi2YjYtti524zYqiDYr9ix2K7ZiNin2LPYquKAjNmH2KfbjCDZgtio2YTbjCDYsdinINm+24zar9uM2LHbjCDaqdmG24zYr1xuXG4iCiAgICAi2YTYt9mB2Kcg24zaqSDar9iy24zZhtmHINix2Kcg2KfZhtiq2K7Yp9ioINqp2YbbjNivOiIKKQoKYXN5bmMgZGVmIHN0YXJ0KHUsIGMpOgogICAgdWlkID0gdS5lZmZlY3RpdmVfdXNlci5pZAogICAgY2xlYXJfc3RhdGUodWlkKQogICAgYXdhaXQgdS5tZXNzYWdlLnJlcGx5X3RleHQoV0VMQ09NRSwgcmVwbHlfbWFya3VwPW1haW5fa2IoKSkKCmFzeW5jIGRlZiBoYW5kbGVfY2FsbGJhY2sodSwgYyk6CiAgICBxID0gdS5jYWxsYmFja19xdWVyeQogICAgYXdhaXQgcS5hbnN3ZXIoKQogICAgdWlkID0gcS5mcm9tX3VzZXIuaWQKICAgIGRhdGEgPSBxLmRhdGEKCiAgICBpZiBkYXRhID09ICJtYWluX21lbnUiOgogICAgICAgIGNsZWFyX3N0YXRlKHVpZCkKICAgICAgICBhd2FpdCBxLm1lc3NhZ2UucmVwbHlfdGV4dChXRUxDT01FLCByZXBseV9tYXJrdXA9bWFpbl9rYigpKQogICAgICAgIHJldHVybgoKICAgIGlmIGRhdGEgPT0gIm5ld19pc3N1ZSI6CiAgICAgICAgc2V0X3N0YXRlKHVpZCwgImNob29zZV9jYXRlZ29yeSIpCiAgICAgICAgYXdhaXQgcS5tZXNzYWdlLnJlcGx5X3RleHQoItmG2YjYuSDYr9ix2K7ZiNin2LPYqiDYrtmI2K8g2LHYpyDYp9mG2KrYrtin2Kgg2qnZhtuM2K86IiwgcmVwbHlfbWFya3VwPWNhdGVnb3J5X2tiKCkpCiAgICAgICAgcmV0dXJuCgogICAgaWYgZGF0YSBpbiBDQVRFR09SWV9NQVA6CiAgICAgICAgc2V0X3N0YXRlKHVpZCwgInR5cGluZ19pc3N1ZSIsIHsiY2F0ZWdvcnlfa2V5IjogZGF0YSwgImNhdGVnb3J5IjogQ0FURUdPUllfTUFQW2RhdGFdfSkKICAgICAgICBhd2FpdCBxLm1lc3NhZ2UucmVwbHlfdGV4dCgKICAgICAgICAgICAgZiLYr9iz2KrZh+KAjNio2YbYr9uMOiB7Q0FURUdPUllfRU1PSklbZGF0YV19IHtDQVRFR09SWV9NQVBbZGF0YV19XG5cbiIKICAgICAgICAgICAgItmE2LfZgdinINmF2LTaqdmEINuM2Kcg2K/Ysdiu2YjYp9iz2Kog2K7ZiNivINix2Kcg2KjYpyDYrNiy2KbbjNin2Kog2KrZiNi224zYrSDYr9mH24zYry5cblxuIgogICAgICAgICAgICAi2KjYsdin24wg2KrYrdmE24zZhCDYqNmH2KrYsSDZhdmI2KfYsdivINiy24zYsSDYsdinINiw2qnYsSDaqdmG24zYrzpcbiIKICAgICAgICAgICAgItqG2Ycg2KfYqtmB2KfZgtuMINin2YHYqtin2K/Zh9ifXG4iCiAgICAgICAgICAgICLYp9iyINqG2Ycg2LLZhdin2YbbjNifXG4iCiAgICAgICAgICAgICLYr9ixINqp2KzYp9ifXG4iCiAgICAgICAgICAgICLahtmHINiz2KfYstmF2KfZhtuMINmF2LPYptmI2YQg2KfYs9iq2J9cbiIKICAgICAgICAgICAgItqG2YbYryDZhtmB2LEg2KrYrdiqINiq2KfYq9uM2LEg2KfYs9iq2J8iLAogICAgICAgICAgICByZXBseV9tYXJrdXA9YmFja19rYigpCiAgICAgICAgKQogICAgICAgIHJldHVybgoKICAgIGlmIGRhdGEgPT0gInRyYWNrIjoKICAgICAgICB1c2VyX2NvZGVzID0gdXNlcl9zdWJtaXNzaW9ucy5nZXQodWlkLCBbXSkKICAgICAgICBpZiBub3QgdXNlcl9jb2RlczoKICAgICAgICAgICAgYXdhaXQgcS5tZXNzYWdlLnJlcGx5X3RleHQoIti02YXYpyDZh9mG2YjYsiDZh9uM2oYg2K/Ysdiu2YjYp9iz2KrbjCDYq9io2Kog2Ybaqdix2K/Zh+KAjNin24zYry4iLCByZXBseV9tYXJrdXA9bWFpbl9rYigpKQogICAgICAgICAgICByZXR1cm4KICAgICAgICBidXR0b25zID0gW10KICAgICAgICBmb3IgY29kZSBpbiByZXZlcnNlZCh1c2VyX2NvZGVzWy0xMDpdKToKICAgICAgICAgICAgc3ViID0gc3VibWlzc2lvbnMuZ2V0KGNvZGUsIHt9KQogICAgICAgICAgICB0aXRsZSA9IHN1Yi5nZXQoInRpdGxlIiwgItio2K/ZiNmGINi52YbZiNin2YYiKVs6MjVdCiAgICAgICAgICAgIHN0YXR1cyA9IFNUQVRVU19NQVAuZ2V0KHN1Yi5nZXQoInN0YXR1cyIsICJyZWNlaXZlZCIpLCAi2K/YsduM2KfZgdiqINi02K8iKQogICAgICAgICAgICBidXR0b25zLmFwcGVuZChbSW5saW5lS2V5Ym9hcmRCdXR0b24oZiJ7dGl0bGV9IC0ge3N0YXR1c30iLCBjYWxsYmFja19kYXRhPWYidmlld197Y29kZX0iKV0pCiAgICAgICAgYnV0dG9ucy5hcHBlbmQoW0lubGluZUtleWJvYXJkQnV0dG9uKCLwn4+gINmF2YbZiCDYp9i12YTbjCIsIGNhbGxiYWNrX2RhdGE9Im1haW5fbWVudSIpXSkKICAgICAgICBhd2FpdCBxLm1lc3NhZ2UucmVwbHlfdGV4dCgi2K/Ysdiu2YjYp9iz2KrigIzZh9in24wg2LTZhdinOiIsIHJlcGx5X21hcmt1cD1JbmxpbmVLZXlib2FyZE1hcmt1cChidXR0b25zKSkKICAgICAgICByZXR1cm4KCiAgICBpZiBkYXRhLnN0YXJ0c3dpdGgoInZpZXdfIik6CiAgICAgICAgY29kZSA9IGRhdGFbNTpdCiAgICAgICAgc3ViID0gc3VibWlzc2lvbnMuZ2V0KGNvZGUpCiAgICAgICAgaWYgbm90IHN1YjoKICAgICAgICAgICAgYXdhaXQgcS5tZXNzYWdlLnJlcGx5X3RleHQoItiv2LHYrtmI2KfYs9iqINm+24zYr9inINmG2LTYry4iLCByZXBseV9tYXJrdXA9bWFpbl9rYigpKQogICAgICAgICAgICByZXR1cm4KICAgICAgICB1cmdlbmN5ID0gc3ViLmdldCgidXJnZW5jeSIsIDUpCiAgICAgICAgdXJnZW5jeV9lbW9qaSA9ICLwn5S0IiBpZiB1cmdlbmN5ID49IDggZWxzZSAi8J+foSIgaWYgdXJnZW5jeSA+PSA1IGVsc2UgIvCfn6IiCiAgICAgICAgc3RhdHVzID0gU1RBVFVTX01BUC5nZXQoc3ViLmdldCgic3RhdHVzIiwgInJlY2VpdmVkIiksICLYr9ix24zYp9mB2Kog2LTYryIpCiAgICAgICAgdGV4dCA9ICgKICAgICAgICAgICAgZiLaqdivINm+24zar9uM2LHbjDoge2NvZGV9XG4iCiAgICAgICAgICAgIGYi2LnZhtmI2KfZhjoge3N1Yi5nZXQoJ3RpdGxlJywgJy0nKX1cbiIKICAgICAgICAgICAgZiLYr9iz2KrZhzoge3N1Yi5nZXQoJ2NhdGVnb3J5JywgJy0nKX1cbiIKICAgICAgICAgICAgZiLZhtmI2Lkg2YXYtNqp2YQ6IHtzdWIuZ2V0KCdpc3N1ZV90eXBlJywgJy0nKX0gLSB7c3ViLmdldCgnc3ViY2F0ZWdvcnknLCAnLScpfVxuIgogICAgICAgICAgICBmItiz2KfYstmF2KfZhiDZhdiz2KbZiNmEOiB7c3ViLmdldCgncmVzcG9uc2libGVfZGVwYXJ0bWVudCcsICctJyl9XG4iCiAgICAgICAgICAgIGYi2KfZiNix2pjYp9mG2LPbjNiqOiB7dXJnZW5jeV9lbW9qaX0ge3VyZ2VuY3l9LzEwXG4iCiAgICAgICAgICAgIGYi2KfZhdiq24zYp9iyINin2YjZhNmI24zYqjoge3N1Yi5nZXQoJ3ByaW9yaXR5X3Njb3JlJywgJy0nKX0vMTAwXG4iCiAgICAgICAgICAgIGYi2YXZiNmC2LnbjNiqOiB7c3ViLmdldCgnbG9jYXRpb24nLCAn2YbYp9mF2LTYrti1Jyl9XG4iCiAgICAgICAgICAgIGYi2KrYp9ix24zYrjoge3N1Yi5nZXQoJ2RhdGUnLCAnLScpfVxuIgogICAgICAgICAgICBmItmI2LbYudmM2Ko6IHtzdGF0dXN9XG5cbiIKICAgICAgICAgICAgZiLYrtmE2KfYtdmHINmH2YjYtCDZhdmE2LPZhtmI2Lnbjjpcblxue3N1Yi5nZXQoJ3N1bW1hcnknLCAnLScpfSIKICAgICAgICApCiAgICAgICAgYXdhaXQgcS5tZXNzYWdlLnJlcGx5X3RleHQodGV4dCwgcmVwbHlfbWFya3VwPWJhY2tfa2IoKSkKICAgICAgICByZXR1cm4KCmFzeW5jIGRlZiBoYW5kbGVfdGV4dCh1LCBjKToKICAgIHVpZCA9IHUuZWZmZWN0aXZlX3VzZXIuaWQKICAgIHRleHQgPSB1Lm1lc3NhZ2UudGV4dAogICAgcyA9IGdldF9zdGF0ZSh1aWQpCgogICAgaWYgc1sic3RlcCJdICE9ICJ0eXBpbmdfaXNzdWUiOgogICAgICAgIGF3YWl0IHUubWVzc2FnZS5yZXBseV90ZXh0KFdFTENPTUUsIHJlcGx5X21hcmt1cD1tYWluX2tiKCkpCiAgICAgICAgcmV0dXJuCgogICAgaWYgbGVuKHRleHQuc3RyaXAoKSkgPCAxNToKICAgICAgICBhd2FpdCB1Lm1lc3NhZ2UucmVwbHlfdGV4dCgKICAgICAgICAgICAgItmE2LfZgdinINiq2YjYttuM2K0g2qnYp9mF2YTigIzYqtix24wg2KfYsdin2KbZhyDYr9mH24zYryAo2K3Yr9in2YLZhCAxNSDaqdin2LHYp9qp2KrYsSkuIiwKICAgICAgICAgICAgcmVwbHlfbWFya3VwPWJhY2tfa2IoKQogICAgICAgICkKICAgICAgICByZXR1cm4KCiAgICBjYXRlZ29yeSA9IHNbImRhdGEiXS5nZXQoImNhdGVnb3J5IiwgIti52YXZiNmF24wiKQogICAgY2F0ZWdvcnlfa2V5ID0gc1siZGF0YSJdLmdldCgiY2F0ZWdvcnlfa2V5IiwgImNhdF9vcGluaW9uIikKCiAgICBtc2cgPSBhd2FpdCB1Lm1lc3NhZ2UucmVwbHlfdGV4dCgi2K/YsSDYrdin2YQg2KrYrdmE24zZhCDZvtuM2KfZhSDYqNmF2Kcg2KrZiNiz2Lcg2YfZiNi0INmF2LXZhtmI2LnbjC4uLiIpCgogICAgdHJ5OgogICAgICAgIGFuYWx5c2lzID0gYW5hbHl6ZV93aXRoX2dlbWluaSh0ZXh0LCBjYXRlZ29yeSkKCiAgICAgICAgaWYgbm90IGFuYWx5c2lzLmdldCgiaXNfdmFsaWQiLCBUcnVlKToKICAgICAgICAgICAgYXdhaXQgbXNnLmVkaXRfdGV4dCgKICAgICAgICAgICAgICAgIGYi2b7bjNin2YUg2LTZhdinINmC2KfYqNmEINm+24zar9uM2LHbjCDZhtuM2LPYqi5cblxu2K/ZhNuM2YQgOiB7YW5hbHlzaXMuZ2V0KCdpbnZhbGlkX3JlYXNvbicsICfZhtin2YXYtNiu2LUnKX1cblxu2YTYt9mB2Kcg2YXYtNqp2YQg2YjYp9mC2LnbjCDYrtmI2K8g2LHYpyDYqNinINir2KjYqiDYqNi024zYtNiq2LEg2KrZiNi224zYrSDYr9mH24zYry4iLAogICAgICAgICAgICAgICAgcmVwbHlfbWFya3VwPWJhY2tfa2IoKQogICAgICAgICAgICApCiAgICAgICAgICAgIHJldHVybgoKICAgICAgICBjb2RlID0gZ2VuX2NvZGUoKQogICAgICAgIG5vdyA9IGRhdGV0aW1lLmRhdGV0aW1lLm5vdygpLnN0cmZ0aW1lKCIlWS0lbS0lZCAlSDolTSIpCgogICAgICAgIHN1YiA9IHsKICAgICAgICAgICAgImNvZGUiOiBjb2RlLAogICAgICAgICAgICAidXNlcl9pZCI6IHVpZCwKICAgICAgICAgICAgInVzZXJuYW1lIjogdS5lZmZlY3RpdmVfdXNlci51c2VybmFtZSBvciAi2YbYp9i02YbYp9izIiwKICAgICAgICAgICAgImNhdGVnb3J5IjogY2F0ZWdvcnksCiAgICAgICAgICAgICJjYXRlZ29yeV9rZXkiOiBjYXRlZ29yeV9rZXksCiAgICAgICAgICAgICJvcmlnaW5hbF90ZXh0IjogdGV4dCwKICAgICAgICAgICAgInRpdGxlIjogYW5hbHlzaXMuZ2V0KCJ0aXRsZSIsICLYqNiv2YjZhiDYudmG2YjYp9mGIiksCiAgICAgICAgICAgICJpc3N1ZV90eXBlIjogYW5hbHlzaXMuZ2V0KCJpc3N1ZV90eXBlIiwgIi0iKSwKICAgICAgICAgICAgInN1YmNhdGVnb3J5IjogYW5hbHlzaXMuZ2V0KCJzdWJjYXRlZ29yeSIsICItIiksCiAgICAgICAgICAgICJ1cmdlbmN5IjogYW5hbHlzaXMuZ2V0KCJ1cmdlbmN5IiwgNSksCiAgICAgICAgICAgICJpbXBhY3QiOiBhbmFseXNpcy5nZXQoImltcGFjdCIsIDUpLAogICAgICAgICAgICAicHJpb3JpdHlfc2NvcmUiOiBhbmFseXNpcy5nZXQoInByaW9yaXR5X3Njb3JlIiwgNTApLAogICAgICAgICAgICAibG9jYXRpb24iOiBhbmFseXNpcy5nZXQoImxvY2F0aW9uIiwgItmG2KfZhdi02K7YtSIpLAogICAgICAgICAgICAicmVzcG9uc2libGVfZGVwYXJ0bWVudCI6IGFuYWx5c2lzLmdldCgicmVzcG9uc2libGVfZGVwYXJ0bWVudCIsICLZhdin2YXYtNiu2LUiKSwKICAgICAgICAgICAgInN1bW1hcnkiOiBhbmFseXNpcy5nZXQoInN1bW1hcnkiLCAiLSIpLAogICAgICAgICAgICAic3RhdHVzIjogInJlY2VpdmVkIiwKICAgICAgICAgICAgImRhdGUiOiBub3cKICAgICAgICB9CgogICAgICAgIHN1Ym1pc3Npb25zW2NvZGVdID0gc3ViCiAgICAgICAgaWYgdWlkIG5vdCBpbiB1c2VyX3N1Ym1pc3Npb25zOgogICAgICAgICAgICB1c2VyX3N1Ym1pc3Npb25zW3VpZF0gPSBbXQogICAgICAgIHVzZXJfc3VibWlzc2lvbnNbdWlkXS5hcHBlbmQoY29kZSkKICAgICAgICBjbGVhcl9zdGF0ZSh1aWQpCgogICAgICAgIHVyZ2VuY3kgPSBzdWJbInVyZ2VuY3kiXQogICAgICAgIHVyZ2VuY3lfZW1vamkgPSAi8J+UtCIgaWYgdXJnZW5jeSA+PSA4IGVsc2UgIvCfn6EiIGlmIHVyZ2VuY3kgPj0gNSBlbHNlICLwn5+iIgoKICAgICAgICByZXNwb25zZSA9ICgKICAgICAgICAgICAgZiLYr9ix2K7ZiNin2LPYqiDYtNmF2Kcg2KjYpyDZhdmI2YHZgtuM2Kog2KvYqNiqINi02K8uXG5cbiIKICAgICAgICAgICAgZiLaqdivINm+24zar9uM2LHbjDoge2NvZGV9XG5cbiIKICAgICAgICAgICAgZiLZhtiq24zYrNmHINiq2K3ZhNuM2YQg2YfZiNi0INmF2LXZhtmI2LnbjDpcbiIKICAgICAgICAgICAgZiLYudmG2YjYp9mGOiB7c3ViWyd0aXRsZSddfVxuIgogICAgICAgICAgICBmItmG2YjYuToge3N1YlsnaXNzdWVfdHlwZSddfSAtIHtzdWJbJ3N1YmNhdGVnb3J5J119XG4iCiAgICAgICAgICAgIGYi2LPYp9iy2YXYp9mGINmF2LPYptmI2YQ6IHtzdWJbJ3Jlc3BvbnNpYmxlX2RlcGFydG1lbnQnXX1cbiIKICAgICAgICAgICAgZiLYp9mI2LHamNin2YbYs9uM2Ko6IHt1cmdlbmN5X2Vtb2ppfSB7dXJnZW5jeX0vMTBcbiIKICAgICAgICAgICAgZiLYp9mF2KrbjNin2LIg2KfZiNmE2YjbjNiqOiB7c3ViWydwcmlvcml0eV9zY29yZSddfS8xMDBcbiIKICAgICAgICAgICAgZiLZhdmI2YLYuduM2Ko6IHtzdWJbJ2xvY2F0aW9uJ119XG5cbiIKICAgICAgICAgICAgZiLYrtmE2KfYtdmHOlxue3N1Ylsnc3VtbWFyeSddfVxuXG4iCiAgICAgICAgICAgIGYi2K/Ysdiu2YjYp9iz2Kog2LTZhdinINio2Ycg2LPYp9iy2YXYp9mGINmF2LHYqNmI2LfZhyDYp9ix2LPYp9mEINiu2YjYp9mH2K8g2LTYry4iCiAgICAgICAgKQoKICAgICAgICBhd2FpdCBtc2cuZWRpdF90ZXh0KHJlc3BvbnNlLCByZXBseV9tYXJrdXA9bWFpbl9rYigpKQoKICAgICAgICBpZiBBRE1JTl9DSEFUX0lEOgogICAgICAgICAgICBhd2FpdCBzZW5kX3RvX2FkbWluKGMsIHN1YikKCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgbG9nZ2VyLmVycm9yKGYiRXJyb3I6IHtlfSIpCiAgICAgICAgYXdhaXQgbXNnLmVkaXRfdGV4dCgi2K7Yt9in24zbjCDYr9ixINiq2K3ZhNuM2YQg2b7bjNin2YUg2LHYriDYr9in2K8uINmE2LfZgdinINiv2YjYqNin2LHZhyDYqtmE2KfYtCDaqdmG24zYry4iLCByZXBseV9tYXJrdXA9YmFja19rYigpKQoKZGVmIGFuYWx5emVfd2l0aF9nZW1pbmkodGV4dCwgY2F0ZWdvcnkpOgogICAgcHJvbXB0ID0gZiIiItiq2Ygg2LPbjNiz2KrZhSDZh9mI2LQg2YXYtdmG2YjYuduMINiq2K3ZhNuM2YQg2KjYp9iy2K7ZiNix2K8g2LTZh9ix2YjZhtiv24wg2YfYs9iq24wuCtm+24zYp9mFINi02YfYsdmI2YbYryDYsdinINiq2K3ZhNuM2YQg2qnZhi4g2YHZgti3IEpTT04g2K7YsdmI2KzbjCDYqNiv2Yc6Cgp7ewogICJ0aXRsZSI6ICLYudmG2YjYp9mGINqp2YjYqtin2Ycg2K3Yr9in2qnYq9ixIDgg2qnZhNmF2YciLAogICJpc3N1ZV90eXBlIjogItuM2qnbjCDYp9iyOiDYstuM2LHYs9in2K7YqiB8INit2YXZhOKAjNmI2YbZgtmEIHwg2KjZh9iv2KfYtNiqIHwg2KLZhdmI2LLYtCB8INmF2K3bjNi3INiy24zYs9iqIHwg2KfZgtiq2LXYp9ivIHwg2K7Yr9mF2KfYqiDYr9mI2YTYqtuMIHwg2LPYp9uM2LEiLAogICJzdWJjYXRlZ29yeSI6ICLYr9iz2KrZh+KAjNio2YbYr9uMINiv2YLbjNmC4oCM2KrYsSDZhdir2YQg2KLYqNiMINio2LHZgtiMINis2KfYr9mH2Iwg2KfbjNmG2KrYsdmG2KoiLAogICJ1cmdlbmN5Ijog2LnYr9ivIDEg2KrYpyAxMCwKICAiaW1wYWN0Ijog2LnYr9ivIDEg2KrYpyAxMCwKICAicHJpb3JpdHlfc2NvcmUiOiDYudiv2K8gMSDYqtinIDEwMCwKICAibG9jYXRpb24iOiAi2LTZh9ixINuM2Kcg2YXZhti32YLZhyDYp9qv2LEg2LDaqdixINi02K/ZhyDZiNqv2LHZhtmHINmG2KfZhdi02K7YtSIsCiAgInJlc3BvbnNpYmxlX2RlcGFydG1lbnQiOiAi2YbYp9mFINqp2KfZhdmEINiz2KfYstmF2KfZhiDbjNinINmI2LLYp9ix2KrYrtin2YbZhyDZhdiz2KbZiNmEINio2Ycg2YHYp9ix2LPbjCIsCiAgInN1bW1hcnkiOiAi2K7ZhNin2LXZhyAyINis2YXZhNmH4oCM2KfbjCDYp9iyINmF2LTaqdmEIiwKICAiaXNfdmFsaWQiOiB0cnVlINuM2KcgZmFsc2UsCiAgImludmFsaWRfcmVhc29uIjogItin2q/YsSBpc192YWxpZD1mYWxzZSDYr9mE24zZhCDYsdinINio2YbZiNuM2LMg2Ybar9ix2YbZhyDYrtin2YTbjCIKfX0KCtiv2LPYqtmHOiB7Y2F0ZWdvcnl9Ctm+24zYp9mFINi02YfYsdmI2YbYrzoge3RleHR9IiIiCgogICAgciA9IHJlcXVlc3RzLnBvc3QoR0VNSU5JX1VSTCwganNvbj17ImNvbnRlbnRzIjogW3sicGFydHMiOiBbeyJ0ZXh0IjogcHJvbXB0fV19XX0sIHRpbWVvdXQ9NjApCiAgICByLnJhaXNlX2Zvcl9zdGF0dXMoKQogICAgcmF3ID0gci5qc29uKClbImNhbmRpZGF0ZXMiXVswXVsiY29udGVudCJdWyJwYXJ0cyJdWzBdWyJ0ZXh0Il0uc3RyaXAoKQogICAgbWF0Y2ggPSByZS5zZWFyY2gocid7W159XSp9fHtbXHNcU10qfScsIHJhdykKICAgIGlmIG1hdGNoOgogICAgICAgIHJldHVybiBqc29uLmxvYWRzKG1hdGNoLmdyb3VwKCkpCiAgICByZXR1cm4ganNvbi5sb2FkcyhyYXcpCgphc3luYyBkZWYgc2VuZF90b19hZG1pbihjLCBzdWIpOgogICAgdHJ5OgogICAgICAgIHVyZ2VuY3kgPSBzdWJbInVyZ2VuY3kiXQogICAgICAgIHVyZ2VuY3lfZW1vamkgPSAi8J+UtCIgaWYgdXJnZW5jeSA+PSA4IGVsc2UgIvCfn6EiIGlmIHVyZ2VuY3kgPj0gNSBlbHNlICLwn5+iIgogICAgICAgIHRleHQgPSAoCiAgICAgICAgICAgIGYi2q/Ystin2LHYtCDYrNiv24zYryDYtNmH2LHZiNmG2K/bjFxuXG4iCiAgICAgICAgICAgIGYi2qnYrzoge3N1YlsnY29kZSddfVxuIgogICAgICAgICAgICBmItiv2LPYqtmHOiB7c3ViWydjYXRlZ29yeSddfVxuIgogICAgICAgICAgICBmIti52YbZiNin2YY6IHtzdWJbJ3RpdGxlJ119XG4iCiAgICAgICAgICAgIGYi2YbZiNi5OiB7c3ViWydpc3N1ZV90eXBlJ119IC0ge3N1Ylsnc3ViY2F0ZWdvcnknXX1cbiIKICAgICAgICAgICAgZiLYs9in2LLZhdin2YYg2YXYs9im2YjZhDoge3N1YlsncmVzcG9uc2libGVfZGVwYXJ0bWVudCddfVxuIgogICAgICAgICAgICBmItin2YjYsdqY2KfZhtiz24zYqjoge3VyZ2VuY3lfZW1vaml9IHt1cmdlbmN5fS8xMFxuIgogICAgICAgICAgICBmItin2YXYqtuM2KfYsiDYp9mI2YTZiNuM2Ko6IHtzdWJbJ3ByaW9yaXR5X3Njb3JlJ119LzEwMFxuIgogICAgICAgICAgICBmItmF2YjZgti524zYqjoge3N1YlsnbG9jYXRpb24nXX1cbiIKICAgICAgICAgICAgZiLYqtin2LHbjNiuOiB7c3ViWydkYXRlJ119XG5cbiIKICAgICAgICAgICAgZiLYrtmE2KfYtdmHOlxue3N1Ylsnc3VtbWFyeSddfVxuXG4iCiAgICAgICAgICAgIGYi2YXYqtmGINin2LXZhNuMOlxue3N1Ylsnb3JpZ2luYWxfdGV4dCddWzo0MDBdfSIKICAgICAgICApCiAgICAgICAgYXdhaXQgYy5ib3Quc2VuZF9tZXNzYWdlKGNoYXRfaWQ9aW50KEFETUlOX0NIQVRfSUQpLCB0ZXh0PXRleHQpCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgbG9nZ2VyLmVycm9yKGYiQWRtaW4gc2VuZCBlcnJvcjoge2V9IikKCmFwcCA9IEFwcGxpY2F0aW9uLmJ1aWxkZXIoKS50b2tlbihUT0tFTikuYnVpbGQoKQphcHAuYWRkX2hhbmRsZXIoQ29tbWFuZEhhbmRsZXIoInN0YXJ0Iiwgc3RhcnQpKQphcHAuYWRkX2hhbmRsZXIoQ2FsbGJhY2tRdWVyeUhhbmRsZXIoaGFuZGxlX2NhbGxiYWNrKSkKYXBwLmFkZF9oYW5kbGVyKE1lc3NhZ2VIYW5kbGVyKGZpbHRlcnMuVEVYVCAmIH5maWx0ZXJzLkNPTU1BTkQsIGhhbmRsZV90ZXh0KSkKbG9nZ2VyLmluZm8oIkNpdGl6ZW4gYm90IHN0YXJ0ZWQhIikKYXBwLnJ1bl9wb2xsaW5nKCkK
+import os, json, logging, requests, datetime, random, string, re
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+TOKEN = os.environ["TELEGRAM_TOKEN"].strip()
+KEY = os.environ["GEMINI_API_KEY"].strip()
+ADMIN_CHAT_ID = os.environ.get("ADMIN_CHAT_ID", "").strip()
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=" + KEY
+
+submissions = {}
+user_submissions = {}
+states = {}
+
+CATEGORY_MAP = {
+    "cat_complaint": "شکایت / مشکل",
+    "cat_suggestion": "پیشنهاد",
+    "cat_idea": "ایده",
+    "cat_opinion": "نظر عمومی"
+}
+
+CATEGORY_EMOJI = {
+    "cat_complaint": "❌",
+    "cat_suggestion": "💡",
+    "cat_idea": "🚀",
+    "cat_opinion": "💬"
+}
+
+STATUS_MAP = {
+    "received": "دریافت شد",
+    "analyzing": "در حال تحلیل",
+    "sent": "ارسال شد به سازمان",
+    "reviewing": "در حال بررسی",
+    "resolved": "حل شده",
+    "rejected": "رد شده"
+}
+
+def gen_code():
+    return "".join(random.choices(string.ascii_uppercase + string.digits, k=8))
+
+def get_state(uid):
+    return states.get(uid, {"step": None, "data": {}})
+
+def set_state(uid, step, data=None):
+    states[uid] = {"step": step, "data": data or {}}
+
+def clear_state(uid):
+    states.pop(uid, None)
+
+def main_kb():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("📝 ثبت مشکل جدید", callback_data="new_issue")],
+        [InlineKeyboardButton("📌 پیگیری درخواست‌ها", callback_data="track")]
+    ])
+
+def category_kb():
+    return InlineKeyboardMarkup([
+        [InlineKeyboardButton("❌ شکایت / مشکل", callback_data="cat_complaint")],
+        [InlineKeyboardButton("💡 پیشنهاد", callback_data="cat_suggestion")],
+        [InlineKeyboardButton("🚀 ایده", callback_data="cat_idea")],
+        [InlineKeyboardButton("💬 نظر عمومی", callback_data="cat_opinion")],
+        [InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")]
+    ])
+
+def back_kb():
+    return InlineKeyboardMarkup([[InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")]])
+
+WELCOME = (
+    "به سامانه ارتباط مردمی خوش آمدید 🏛\n\n"
+    "از طریق این سامانه می‌توانید:\n"
+    "مشکلات و شکایات را گزارش دهید\n"
+    "پیشنهادات و ایده‌های خود را ثبت کنید\n"
+    "وضعیت درخواست‌های قبلی را پیگیری کنید\n\n"
+    "لطفا یک گزینه را انتخاب کنید:"
+)
+
+async def start(u, c):
+    uid = u.effective_user.id
+    clear_state(uid)
+    await u.message.reply_text(WELCOME, reply_markup=main_kb())
+
+async def handle_callback(u, c):
+    q = u.callback_query
+    await q.answer()
+    uid = q.from_user.id
+    data = q.data
+
+    if data == "main_menu":
+        clear_state(uid)
+        await q.message.reply_text(WELCOME, reply_markup=main_kb())
+        return
+
+    if data == "new_issue":
+        set_state(uid, "choose_category")
+        await q.message.reply_text("نوع درخواست خود را انتخاب کنید:", reply_markup=category_kb())
+        return
+
+    if data in CATEGORY_MAP:
+        set_state(uid, "typing_issue", {"category_key": data, "category": CATEGORY_MAP[data]})
+        await q.message.reply_text(
+            f"دسته‌بندی: {CATEGORY_EMOJI[data]} {CATEGORY_MAP[data]}\n\n"
+            "لطفا مشکل یا درخواست خود را با جزئیات توضیح دهید.\n\n"
+            "برای تحلیل بهتر موارد زیر را ذکر کنید:\n"
+            "چه اتفاقی افتاده؟\n"
+            "از چه زمانی؟\n"
+            "در کجا؟\n"
+            "چه سازمانی مسئول است؟\n"
+            "چند نفر تحت تاثیر است؟",
+            reply_markup=back_kb()
+        )
+        return
+
+    if data == "track":
+        user_codes = user_submissions.get(uid, [])
+        if not user_codes:
+            await q.message.reply_text("شما هنوز هیچ درخواستی ثبت نکرده‌اید.", reply_markup=main_kb())
+            return
+        buttons = []
+        for code in reversed(user_codes[-10:]):
+            sub = submissions.get(code, {})
+            title = sub.get("title", "بدون عنوان")[:25]
+            status = STATUS_MAP.get(sub.get("status", "received"), "دریافت شد")
+            buttons.append([InlineKeyboardButton(f"{title} - {status}", callback_data=f"view_{code}")])
+        buttons.append([InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")])
+        await q.message.reply_text("درخواست‌های شما:", reply_markup=InlineKeyboardMarkup(buttons))
+        return
+
+    if data.startswith("view_"):
+        code = data[5:]
+        sub = submissions.get(code)
+        if not sub:
+            await q.message.reply_text("درخواست پیدا نشد.", reply_markup=main_kb())
+            return
+        urgency = sub.get("urgency", 5)
+        urgency_emoji = "🔴" if urgency >= 8 else "🟡" if urgency >= 5 else "🟢"
+        status = STATUS_MAP.get(sub.get("status", "received"), "دریافت شد")
+        text = (
+            f"کد پیگیری: {code}\n"
+            f"عنوان: {sub.get('title', '-')}\n"
+            f"دسته: {sub.get('category', '-')}\n"
+            f"نوع مشکل: {sub.get('issue_type', '-')} - {sub.get('subcategory', '-')}\n"
+            f"سازمان مسئول: {sub.get('responsible_department', '-')}\n"
+            f"اورژانسیت: {urgency_emoji} {urgency}/10\n"
+            f"امتیاز اولویت: {sub.get('priority_score', '-')}/100\n"
+            f"موقعیت: {sub.get('location', 'نامشخص')}\n"
+            f"تاریخ ثبت: {sub.get('date', '-')}\n"
+            f"وضعیت: {status}\n\n"
+            f"خلاصه هوش مصنوعی:\n{sub.get('summary', '-')}"
+        )
+        await q.message.reply_text(text, reply_markup=back_kb())
+        return
+
+async def handle_text(u, c):
+    uid = u.effective_user.id
+    text = u.message.text
+    s = get_state(uid)
+
+    if s["step"] != "typing_issue":
+        await u.message.reply_text(WELCOME, reply_markup=main_kb())
+        return
+
+    if len(text.strip()) < 15:
+        await u.message.reply_text(
+            "لطفا توضیح کامل‌تری ارائه دهید (حداقل 15 کاراکتر).",
+            reply_markup=back_kb()
+        )
+        return
+
+    category = s["data"].get("category", "عمومی")
+    category_key = s["data"].get("category_key", "cat_opinion")
+
+    msg = await u.message.reply_text("در حال تحلیل پیام شما توسط هوش مصنوعی...")
+
+    try:
+        analysis = analyze_with_gemini(text, category)
+
+        if not analysis.get("is_valid", True):
+            await msg.edit_text(
+                f"پیام شما قابل پیگیری نیست.\n\nدلیل: {analysis.get('invalid_reason', 'نامشخص')}\n\nلطفا مشکل واقعی خود را با جزئیات بیشتر توضیح دهید.",
+                reply_markup=back_kb()
+            )
+            return
+
+        code = gen_code()
+        now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+        sub = {
+            "code": code,
+            "user_id": uid,
+            "username": u.effective_user.username or "ناشناس",
+            "category": category,
+            "category_key": category_key,
+            "original_text": text,
+            "title": analysis.get("title", "بدون عنوان"),
+            "issue_type": analysis.get("issue_type", "-"),
+            "subcategory": analysis.get("subcategory", "-"),
+            "urgency": analysis.get("urgency", 5),
+            "impact": analysis.get("impact", 5),
+            "priority_score": analysis.get("priority_score", 50),
+            "location": analysis.get("location", "نامشخص"),
+            "responsible_department": analysis.get("responsible_department", "نامشخص"),
+            "summary": analysis.get("summary", "-"),
+            "status": "received",
+            "date": now
+        }
+
+        submissions[code] = sub
+        if uid not in user_submissions:
+            user_submissions[uid] = []
+        user_submissions[uid].append(code)
+        clear_state(uid)
+
+        urgency = sub["urgency"]
+        urgency_emoji = "🔴" if urgency >= 8 else "🟡" if urgency >= 5 else "🟢"
+
+        response = (
+            f"درخواست شما با موفقیت ثبت شد.\n\n"
+            f"کد پیگیری: {code}\n\n"
+            f"نتیجه تحلیل هوش مصنوعی:\n"
+            f"عنوان: {sub['title']}\n"
+            f"نوع: {sub['issue_type']} - {sub['subcategory']}\n"
+            f"سازمان مسئول: {sub['responsible_department']}\n"
+            f"اورژانسیت: {urgency_emoji} {urgency}/10\n"
+            f"امتیاز اولویت: {sub['priority_score']}/100\n"
+            f"موقعیت: {sub['location']}\n\n"
+            f"خلاصه:\n{sub['summary']}\n\n"
+            f"درخواست شما به سازمان مربوطه ارسال خواهد شد."
+        )
+
+        await msg.edit_text(response, reply_markup=main_kb())
+
+        if ADMIN_CHAT_ID:
+            await send_to_admin(c, sub)
+
+    except Exception as e:
+        logger.error(f"Error: {e}")
+        await msg.edit_text("خطایی در تحلیل پیام رخ داد. لطفا دوباره تلاش کنید.", reply_markup=back_kb())
+
+def analyze_with_gemini(text, category):
+    prompt = f"""تو سیستم هوش مصنوعی تحلیل بازخورد شهروندی هستی.
+پیام شهروند را تحلیل کن. فقط JSON خروجی بده:
+
+{{
+  "title": "عنوان کوتاه حداکثر 8 کلمه",
+  "issue_type": "یکی از: زیرساخت | حمل‌ونقل | بهداشت | آموزش | محیط زیست | اقتصاد | خدمات دولتی | سایر",
+  "subcategory": "دسته‌بندی دقیق‌تر مثل آب، برق، جاده، اینترنت",
+  "urgency": عدد 1 تا 10,
+  "impact": عدد 1 تا 10,
+  "priority_score": عدد 1 تا 100,
+  "location": "شهر یا منطقه اگر ذکر شده وگرنه نامشخص",
+  "responsible_department": "نام کامل سازمان یا وزارتخانه مسئول به فارسی",
+  "summary": "خلاصه 2 جمله‌ای از مشکل",
+  "is_valid": true یا false,
+  "invalid_reason": "اگر is_valid=false دلیل را بنویس وگرنه خالی"
+}}
+
+دسته: {category}
+پیام شهروند: {text}"""
+
+    r = requests.post(GEMINI_URL, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=60)
+    r.raise_for_status()
+    raw = r.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
+    match = re.search(r'{[^}]*}|{[\s\S]*}', raw)
+    if match:
+        return json.loads(match.group())
+    return json.loads(raw)
+
+async def send_to_admin(c, sub):
+    try:
+        urgency = sub["urgency"]
+        urgency_emoji = "🔴" if urgency >= 8 else "🟡" if urgency >= 5 else "🟢"
+        text = (
+            f"گزارش جدید شهروندی\n\n"
+            f"کد: {sub['code']}\n"
+            f"دسته: {sub['category']}\n"
+            f"عنوان: {sub['title']}\n"
+            f"نوع: {sub['issue_type']} - {sub['subcategory']}\n"
+            f"سازمان مسئول: {sub['responsible_department']}\n"
+            f"اورژانسیت: {urgency_emoji} {urgency}/10\n"
+            f"امتیاز اولویت: {sub['priority_score']}/100\n"
+            f"موقعیت: {sub['location']}\n"
+            f"تاریخ: {sub['date']}\n\n"
+            f"خلاصه:\n{sub['summary']}\n\n"
+            f"متن اصلی:\n{sub['original_text'][:400]}"
+        )
+        await c.bot.send_message(chat_id=int(ADMIN_CHAT_ID), text=text)
+    except Exception as e:
+        logger.error(f"Admin send error: {e}")
+
+app = Application.builder().token(TOKEN).build()
+app.add_handler(CommandHandler("start", start))
+app.add_handler(CallbackQueryHandler(handle_callback))
+app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text))
+logger.info("Citizen bot started!")
+app.run_polling()
