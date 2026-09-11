@@ -1,13 +1,13 @@
 import os, json, logging, requests, datetime, random, string, re
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
-from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, ContextTypes, filters
+from telegram import InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 TOKEN = os.environ["TELEGRAM_TOKEN"].strip()
 KEY = os.environ["GEMINI_API_KEY"].strip()
-CHANNEL_ID = os.environ.get("CHANNEL_ID", "").strip()  # @channel_username or -100xxxxxxxxxx
+CHANNEL_ID = os.environ.get("CHANNEL_ID", "").strip()
 ADMIN_CHAT_ID = os.environ.get("ADMIN_CHAT_ID", "").strip()
 GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent?key=" + KEY
 
@@ -15,66 +15,76 @@ submissions = {}
 user_submissions = {}
 states = {}
 
+NAMSHAKHAS = "نامشخص"
+BEDOON_ONVAN = "بدون عنوان"
+DARYAFT_SHOD = "دریافت شد"
+SEP = "─" * 30
+
 CATEGORY_MAP = {
-    "cat_complaint": "\u0634\u06a9\u0627\u06cc\u062a / \u0645\u0634\u06a9\u0644",
-    "cat_suggestion": "\u067e\u06cc\u0634\u0646\u0647\u0627\u062f",
-    "cat_idea": "\u0627\u06cc\u062f\u0647",
-    "cat_opinion": "\u0646\u0638\u0631 \u0639\u0645\u0648\u0645\u06cc"
+    "cat_complaint": "شکایت / مشکل",
+    "cat_suggestion": "پیشنهاد",
+    "cat_idea": "ایده",
+    "cat_opinion": "نظر عمومی"
 }
-
 CATEGORY_EMOJI = {
-    "cat_complaint": "\u274c",
-    "cat_suggestion": "\U0001f4a1",
-    "cat_idea": "\U0001f680",
-    "cat_opinion": "\U0001f4ac"
+    "cat_complaint": "❌",
+    "cat_suggestion": "💡",
+    "cat_idea": "🚀",
+    "cat_opinion": "💬"
 }
-
 CATEGORY_PROMPTS = {
     "cat_complaint": (
-        "\u0644\u0637\u0641\u0627 \u0645\u0634\u06a9\u0644 \u06cc\u0627 \u0634\u06a9\u0627\u06cc\u062a \u062e\u0648\u062f \u0631\u0627 \u0628\u0627 \u062c\u0632\u0626\u06cc\u0627\u062a \u062a\u0648\u0636\u06cc\u062d \u062f\u0647\u06cc\u062f.\n\n"
-        "\u0628\u0631\u0627\u06cc \u0628\u0631\u0631\u0633\u06cc \u062f\u0642\u06cc\u0642\u200c\u062a\u0631 \u0645\u0648\u0627\u0631\u062f \u0632\u06cc\u0631 \u0631\u0627 \u0630\u06a9\u0631 \u06a9\u0646\u06cc\u062f:\n"
-        "\u2022 \u0686\u0647 \u0645\u0634\u06a9\u0644\u06cc \u0631\u062e \u062f\u0627\u062f\u0647 \u0648 \u0627\u0632 \u0686\u0647 \u0632\u0645\u0627\u0646\u06cc\u061f\n"
-        "\u2022 \u062f\u0631 \u06a9\u062c\u0627 \u0627\u062a\u0641\u0627\u0642 \u0627\u0641\u062a\u0627\u062f\u0647\u061f (\u0645\u062d\u0644\u0647\u060c \u062e\u06cc\u0627\u0628\u0627\u0646\u060c \u0645\u0646\u0637\u0642\u0647)\n"
-        "\u2022 \u0686\u0647 \u0633\u0627\u0632\u0645\u0627\u0646\u06cc \u0645\u0633\u0626\u0648\u0644 \u0631\u0633\u06cc\u062f\u06af\u06cc \u0627\u0633\u062a\u061f\n"
-        "\u2022 \u0686\u0646\u062f \u0646\u0641\u0631 \u0627\u0632 \u0627\u06cc\u0646 \u0645\u0634\u06a9\u0644 \u0645\u062a\u0636\u0631\u0631 \u0634\u062f\u0647\u200c\u0627\u0646\u062f\u061f\n"
-        "\u2022 \u0622\u06cc\u0627 \u0642\u0628\u0644\u0627\u064b \u067e\u06cc\u06af\u06cc\u0631\u06cc \u0634\u062f\u0647\u061f"
+        "لطفا مشکل یا شکایت خود را با جزئیات توضیح دهید.\n\n"
+        "برای بررسی دقیق‌تر موارد زیر را ذکر کنید:\n"
+        "• چه مشکلی رخ داده و از چه زمانی؟\n"
+        "• در کجا اتفاق افتاده؟ (محله، خیابان، منطقه)\n"
+        "• چه سازمانی مسئول رسیدگی است؟\n"
+        "• چند نفر از این مشکل متضرر شده‌اند؟\n"
+        "• آیا قبلا پیگیری شده؟"
     ),
     "cat_suggestion": (
-        "\u0644\u0637\u0641\u0627 \u067e\u06cc\u0634\u0646\u0647\u0627\u062f \u062e\u0648\u062f \u0631\u0627 \u0628\u0627 \u062c\u0632\u0626\u06cc\u0627\u062a \u0634\u0631\u062d \u062f\u0647\u06cc\u062f.\n\n"
-        "\u0628\u0631\u0627\u06cc \u0628\u0631\u0631\u0633\u06cc \u062f\u0642\u06cc\u0642\u200c\u062a\u0631 \u0645\u0648\u0627\u0631\u062f \u0632\u06cc\u0631 \u0631\u0627 \u0630\u06a9\u0631 \u06a9\u0646\u06cc\u062f:\n"
-        "\u2022 \u067e\u06cc\u0634\u0646\u0647\u0627\u062f \u0634\u0645\u0627 \u062f\u0642\u06cc\u0642\u0627\u064b \u0686\u06cc\u0633\u062a\u061f\n"
-        "\u2022 \u0686\u0647 \u0645\u0634\u06a9\u0644\u06cc \u0631\u0627 \u062d\u0644 \u0645\u06cc\u200c\u06a9\u0646\u062f\u061f\n"
-        "\u2022 \u0686\u0647 \u06a9\u0633\u0627\u0646\u06cc \u0627\u0632 \u0622\u0646 \u0628\u0647\u0631\u0647\u200c\u0645\u0646\u062f \u0645\u06cc\u200c\u0634\u0648\u0646\u062f\u061f\n"
-        "\u2022 \u0622\u06cc\u0627 \u0646\u0645\u0648\u0646\u0647 \u0645\u0634\u0627\u0628\u0647\u06cc \u062f\u0631 \u062c\u0627\u06cc \u062f\u06cc\u06af\u0631\u06cc \u0627\u062c\u0631\u0627 \u0634\u062f\u0647\u061f\n"
-        "\u2022 \u0686\u0647 \u0645\u0646\u0627\u0628\u0639 \u06cc\u0627 \u0628\u0648\u062f\u062c\u0647\u06cc \u0646\u06cc\u0627\u0632 \u062f\u0627\u0631\u062f\u061f"
+        "لطفا پیشنهاد خود را با جزئیات شرح دهید.\n\n"
+        "برای بررسی دقیق‌تر موارد زیر را ذکر کنید:\n"
+        "• پیشنهاد شما دقیقا چیست؟\n"
+        "• چه مشکلی را حل می‌کند؟\n"
+        "• چه کسانی از آن بهره‌مند می‌شوند؟\n"
+        "• آیا نمونه مشابهی در جای دیگری اجرا شده؟\n"
+        "• چه منابع یا بودجه‌ای نیاز دارد؟"
     ),
     "cat_idea": (
-        "\u0644\u0637\u0641\u0627 \u0627\u06cc\u062f\u0647 \u062e\u0648\u062f \u0631\u0627 \u0628\u0627 \u062c\u0632\u0626\u06cc\u0627\u062a \u0634\u0631\u062d \u062f\u0647\u06cc\u062f.\n\n"
-        "\u0628\u0631\u0627\u06cc \u0628\u0631\u0631\u0633\u06cc \u062f\u0642\u06cc\u0642\u200c\u062a\u0631 \u0645\u0648\u0627\u0631\u062f \u0632\u06cc\u0631 \u0631\u0627 \u0630\u06a9\u0631 \u06a9\u0646\u06cc\u062f:\n"
-        "\u2022 \u0627\u06cc\u062f\u0647 \u0634\u0645\u0627 \u0686\u06cc\u0633\u062a \u0648 \u0686\u0647 \u0647\u062f\u0641\u06cc \u062f\u0627\u0631\u062f\u061f\n"
-        "\u2022 \u0686\u06af\u0648\u0646\u0647 \u0645\u06cc\u200c\u062a\u0648\u0627\u0646 \u0622\u0646 \u0631\u0627 \u0627\u062c\u0631\u0627\u06cc\u06cc \u06a9\u0631\u062f\u061f\n"
-        "\u2022 \u0686\u0647 \u0645\u0632\u0627\u06cc\u0627 \u0648 \u062a\u0627\u062b\u06cc\u0631\u0627\u062a\u06cc \u0628\u0631\u0627\u06cc \u0634\u0647\u0631 \u062f\u0627\u0631\u062f\u061f\n"
-        "\u2022 \u0686\u0647 \u0686\u0627\u0644\u0634\u200c\u0647\u0627\u06cc\u06cc \u062f\u0631 \u0627\u062c\u0631\u0627 \u0648\u062c\u0648\u062f \u062f\u0627\u0631\u062f\u061f\n"
-        "\u2022 \u062f\u0631 \u0686\u0647 \u0628\u0627\u0632\u0647 \u0632\u0645\u0627\u0646\u06cc \u0642\u0627\u0628\u0644 \u0627\u062c\u0631\u0627\u0633\u062a\u061f"
+        "لطفا ایده خود را با جزئیات شرح دهید.\n\n"
+        "برای بررسی دقیق‌تر موارد زیر را ذکر کنید:\n"
+        "• ایده شما چیست و چه هدفی دارد؟\n"
+        "• چگونه می‌توان آن را اجرایی کرد؟\n"
+        "• چه مزایا و تاثیراتی برای شهر دارد؟\n"
+        "• چه چالش‌هایی در اجرا وجود دارد؟\n"
+        "• در چه بازه زمانی قابل اجراست؟"
     ),
     "cat_opinion": (
-        "\u0644\u0637\u0641\u0627 \u0646\u0638\u0631 \u062e\u0648\u062f \u0631\u0627 \u0628\u06cc\u0627\u0646 \u06a9\u0646\u06cc\u062f.\n\n"
-        "\u0628\u0631\u0627\u06cc \u0628\u0631\u0631\u0633\u06cc \u062f\u0642\u06cc\u0642\u200c\u062a\u0631 \u0645\u0648\u0627\u0631\u062f \u0632\u06cc\u0631 \u0631\u0627 \u0630\u06a9\u0631 \u06a9\u0646\u06cc\u062f:\n"
-        "\u2022 \u0645\u0648\u0636\u0648\u0639 \u0645\u0648\u0631\u062f \u0646\u0638\u0631 \u0686\u06cc\u0633\u062a\u061f\n"
-        "\u2022 \u062f\u06cc\u062f\u06af\u0627\u0647 \u0648 \u0646\u0638\u0631 \u0634\u0645\u0627 \u0686\u06cc\u0633\u062a\u061f\n"
-        "\u2022 \u0627\u06cc\u0646 \u0645\u0648\u0636\u0648\u0639 \u0686\u0647 \u062a\u0627\u062b\u06cc\u0631\u06cc \u0628\u0631 \u0632\u0646\u062f\u06af\u06cc \u0634\u0645\u0627 \u062f\u0627\u0634\u062a\u0647\u061f\n"
-        "\u2022 \u0686\u0647 \u0631\u0627\u0647\u200c\u062d\u0644 \u06cc\u0627 \u067e\u06cc\u0634\u0646\u0647\u0627\u062f\u06cc \u062f\u0627\u0631\u06cc\u062f\u061f"
+        "لطفا نظر خود را بیان کنید.\n\n"
+        "برای بررسی دقیق‌تر موارد زیر را ذکر کنید:\n"
+        "• موضوع مورد نظر چیست؟\n"
+        "• دیدگاه و نظر شما چیست؟\n"
+        "• این موضوع چه تاثیری بر زندگی شما داشته؟\n"
+        "• چه راه‌حل یا پیشنهادی دارید؟"
     ),
 }
-
 STATUS_MAP = {
-    "received": "\u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f",
-    "analyzing": "\u062f\u0631 \u062d\u0627\u0644 \u062a\u062d\u0644\u06cc\u0644",
-    "sent": "\u0627\u0631\u0633\u0627\u0644 \u0634\u062f \u0628\u0647 \u0633\u0627\u0632\u0645\u0627\u0646",
-    "reviewing": "\u062f\u0631 \u062d\u0627\u0644 \u0628\u0631\u0631\u0633\u06cc",
-    "resolved": "\u062d\u0644 \u0634\u062f\u0647",
-    "rejected": "\u0631\u062f \u0634\u062f\u0647"
+    "received": "دریافت شد",
+    "analyzing": "در حال تحلیل",
+    "sent": "ارسال شد به سازمان",
+    "reviewing": "در حال بررسی",
+    "resolved": "حل شده",
+    "rejected": "رد شده"
 }
+WELCOME = (
+    "به سامانه ارتباط مردمی خوش آمدید 🏛\n\n"
+    "از طریق این سامانه می‌توانید:\n"
+    "• مشکلات و شکایات را گزارش دهید\n"
+    "• پیشنهادات و ایده‌های خود را ثبت کنید\n"
+    "• وضعیت درخواست‌های قبلی را پیگیری کنید\n\n"
+    "لطفا یک گزینه را انتخاب کنید:"
+)
 
 def gen_code():
     return "".join(random.choices(string.ascii_uppercase + string.digits, k=8))
@@ -90,34 +100,24 @@ def clear_state(uid):
 
 def main_kb():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("\U0001f4dd \u062b\u0628\u062a \u0645\u0634\u06a9\u0644 \u062c\u062f\u06cc\u062f", callback_data="new_issue")],
-        [InlineKeyboardButton("\U0001f4cc \u067e\u06cc\u06af\u06cc\u0631\u06cc \u062f\u0631\u062e\u0648\u0627\u0633\u062a\u200c\u0647\u0627", callback_data="track")]
+        [InlineKeyboardButton("📝 ثبت مشکل جدید", callback_data="new_issue")],
+        [InlineKeyboardButton("📌 پیگیری درخواست‌ها", callback_data="track")]
     ])
 
 def category_kb():
     return InlineKeyboardMarkup([
-        [InlineKeyboardButton("\u274c \u0634\u06a9\u0627\u06cc\u062a / \u0645\u0634\u06a9\u0644", callback_data="cat_complaint")],
-        [InlineKeyboardButton("\U0001f4a1 \u067e\u06cc\u0634\u0646\u0647\u0627\u062f", callback_data="cat_suggestion")],
-        [InlineKeyboardButton("\U0001f680 \u0627\u06cc\u062f\u0647", callback_data="cat_idea")],
-        [InlineKeyboardButton("\U0001f4ac \u0646\u0638\u0631 \u0639\u0645\u0648\u0645\u06cc", callback_data="cat_opinion")],
-        [InlineKeyboardButton("\U0001f3e0 \u0645\u0646\u0648 \u0627\u0635\u0644\u06cc", callback_data="main_menu")]
+        [InlineKeyboardButton("❌ شکایت / مشکل", callback_data="cat_complaint")],
+        [InlineKeyboardButton("💡 پیشنهاد", callback_data="cat_suggestion")],
+        [InlineKeyboardButton("🚀 ایده", callback_data="cat_idea")],
+        [InlineKeyboardButton("💬 نظر عمومی", callback_data="cat_opinion")],
+        [InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")]
     ])
 
 def back_kb():
-    return InlineKeyboardMarkup([[InlineKeyboardButton("\U0001f3e0 \u0645\u0646\u0648 \u0627\u0635\u0644\u06cc", callback_data="main_menu")]])
-
-WELCOME = (
-    "\u0628\u0647 \u0633\u0627\u0645\u0627\u0646\u0647 \u0627\u0631\u062a\u0628\u0627\u0637 \u0645\u0631\u062f\u0645\u06cc \u062e\u0648\u0634 \u0622\u0645\u062f\u06cc\u062f \U0001f3db\n\n"
-    "\u0627\u0632 \u0637\u0631\u06cc\u0642 \u0627\u06cc\u0646 \u0633\u0627\u0645\u0627\u0646\u0647 \u0645\u06cc\u200c\u062a\u0648\u0627\u0646\u06cc\u062f:\n"
-    "\u2022 \u0645\u0634\u06a9\u0644\u0627\u062a \u0648 \u0634\u06a9\u0627\u06cc\u0627\u062a \u0631\u0627 \u06af\u0632\u0627\u0631\u0634 \u062f\u0647\u06cc\u062f\n"
-    "\u2022 \u067e\u06cc\u0634\u0646\u0647\u0627\u062f\u0627\u062a \u0648 \u0627\u06cc\u062f\u0647\u200c\u0647\u0627\u06cc \u062e\u0648\u062f \u0631\u0627 \u062b\u0628\u062a \u06a9\u0646\u06cc\u062f\n"
-    "\u2022 \u0648\u0636\u0639\u06cc\u062a \u062f\u0631\u062e\u0648\u0627\u0633\u062a\u200c\u0647\u0627\u06cc \u0642\u0628\u0644\u06cc \u0631\u0627 \u067e\u06cc\u06af\u06cc\u0631\u06cc \u06a9\u0646\u06cc\u062f\n\n"
-    "\u0644\u0637\u0641\u0627 \u06cc\u06a9 \u06af\u0632\u06cc\u0646\u0647 \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646\u06cc\u062f:"
-)
+    return InlineKeyboardMarkup([[InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")]])
 
 async def start(u, c):
-    uid = u.effective_user.id
-    clear_state(uid)
+    clear_state(u.effective_user.id)
     await u.message.reply_text(WELCOME, reply_markup=main_kb())
 
 async def handle_callback(u, c):
@@ -133,50 +133,54 @@ async def handle_callback(u, c):
 
     if data == "new_issue":
         set_state(uid, "choose_category")
-        await q.message.reply_text("\u0646\u0648\u0639 \u062f\u0631\u062e\u0648\u0627\u0633\u062a \u062e\u0648\u062f \u0631\u0627 \u0627\u0646\u062a\u062e\u0627\u0628 \u06a9\u0646\u06cc\u062f:", reply_markup=category_kb())
+        await q.message.reply_text("نوع درخواست خود را انتخاب کنید:", reply_markup=category_kb())
         return
 
     if data in CATEGORY_MAP:
         set_state(uid, "typing_issue", {"category_key": data, "category": CATEGORY_MAP[data]})
-        prompt_text = CATEGORY_PROMPTS[data]
-        await q.message.reply_text(
-            f"\u062f\u0633\u062a\u0647\u200c\u0628\u0646\u062f\u06cc: {CATEGORY_EMOJI[data]} {CATEGORY_MAP[data]}\n\n{prompt_text}",
-            reply_markup=back_kb()
-        )
+        emoji = CATEGORY_EMOJI[data]
+        name = CATEGORY_MAP[data]
+        prompt = CATEGORY_PROMPTS[data]
+        await q.message.reply_text(f"دسته‌بندی: {emoji} {name}\n\n{prompt}", reply_markup=back_kb())
         return
 
     if data == "track":
         user_codes = user_submissions.get(uid, [])
         if not user_codes:
-            await q.message.reply_text("\u0634\u0645\u0627 \u0647\u0646\u0648\u0632 \u0647\u06cc\u0686 \u062f\u0631\u062e\u0648\u0627\u0633\u062a\u06cc \u062b\u0628\u062a \u0646\u06a9\u0631\u062f\u0647\u200c\u0627\u06cc\u062f.", reply_markup=main_kb())
+            await q.message.reply_text("شما هنوز هیچ درخواستی ثبت نکرده‌اید.", reply_markup=main_kb())
             return
         buttons = []
         for code in reversed(user_codes[-10:]):
             sub = submissions.get(code, {})
-            title = sub.get("title", "\u0628\u062f\u0648\u0646 \u0639\u0646\u0648\u0627\u0646")[:25]
-            status = STATUS_MAP.get(sub.get("status", "received"), "\u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f")
+            title = sub.get("title", BEDOON_ONVAN)[:25]
+            status = STATUS_MAP.get(sub.get("status", "received"), DARYAFT_SHOD)
             buttons.append([InlineKeyboardButton(f"{title} - {status}", callback_data=f"view_{code}")])
-        buttons.append([InlineKeyboardButton("\U0001f3e0 \u0645\u0646\u0648 \u0627\u0635\u0644\u06cc", callback_data="main_menu")])
-        await q.message.reply_text("\u062f\u0631\u062e\u0648\u0627\u0633\u062a\u200c\u0647\u0627\u06cc \u0634\u0645\u0627:", reply_markup=InlineKeyboardMarkup(buttons))
+        buttons.append([InlineKeyboardButton("🏠 منو اصلی", callback_data="main_menu")])
+        await q.message.reply_text("درخواست‌های شما:", reply_markup=InlineKeyboardMarkup(buttons))
         return
 
     if data.startswith("view_"):
         code = data[5:]
         sub = submissions.get(code)
         if not sub:
-            await q.message.reply_text("\u062f\u0631\u062e\u0648\u0627\u0633\u062a \u067e\u06cc\u062f\u0627 \u0646\u0634\u062f.", reply_markup=main_kb())
+            await q.message.reply_text("درخواست پیدا نشد.", reply_markup=main_kb())
             return
         urgency = sub.get("urgency", 5)
-        urgency_emoji = "\U0001f534" if urgency >= 8 else "\U0001f7e1" if urgency >= 5 else "\U0001f7e2"
-        status = STATUS_MAP.get(sub.get("status", "received"), "\u062f\u0631\u06cc\u0627\u0641\u062a \u0634\u062f")
+        ue = "🔴" if urgency >= 8 else "🟡" if urgency >= 5 else "🟢"
+        status = STATUS_MAP.get(sub.get("status", "received"), DARYAFT_SHOD)
+        title = sub.get("title", "-")
+        cat = sub.get("category", "-")
+        loc = sub.get("location", NAMSHAKHAS)
+        dt = sub.get("date", "-")
+        summ = sub.get("summary", "-")
         text = (
-            f"\U0001f516 \u06a9\u062f \u067e\u06cc\u06af\u06cc\u0631\u06cc: {code}\n"
-            f"\U0001f4cc \u0639\u0646\u0648\u0627\u0646: {sub.get('title', '-')}\n"
-            f"\U0001f5c2 \u062f\u0633\u062a\u0647: {sub.get('category', '-')}\n"
-            f"\U0001f4cd \u0645\u0648\u0642\u0639\u06cc\u062a: {sub.get('location', '\u0646\u0627\u0645\u0634\u062e\u0635')}\n"
-            f"\U0001f4c5 \u062a\u0627\u0631\u06cc\u062e \u062b\u0628\u062a: {sub.get('date', '-')}\n"
-            f"\U0001f4cb \u0648\u0636\u0639\u06cc\u062a: {status}\n\n"
-            f"\U0001f4dd \u062e\u0644\u0627\u0635\u0647:\n{sub.get('summary', '-')}"
+            f"🔖 کد پیگیری: {code}\n"
+            f"📌 عنوان: {title}\n"
+            f"🗂 دسته: {cat}\n"
+            f"📍 موقعیت: {loc}\n"
+            f"📅 تاریخ ثبت: {dt}\n"
+            f"📋 وضعیت: {status}\n\n"
+            f"📝 خلاصه:\n{summ}"
         )
         await q.message.reply_text(text, reply_markup=back_kb())
         return
@@ -191,79 +195,84 @@ async def handle_text(u, c):
         return
 
     if len(text.strip()) < 15:
-        await u.message.reply_text(
-            "\u0644\u0637\u0641\u0627 \u062a\u0648\u0636\u06cc\u062d \u06a9\u0627\u0645\u0644\u200c\u062a\u0631\u06cc \u0627\u0631\u0627\u0626\u0647 \u062f\u0647\u06cc\u062f (\u062d\u062f\u0627\u0642\u0644 15 \u06a9\u0627\u0631\u0627\u06a9\u062a\u0631).",
-            reply_markup=back_kb()
-        )
+        await u.message.reply_text("لطفا توضیح کامل‌تری ارائه دهید (حداقل 15 کاراکتر).", reply_markup=back_kb())
         return
 
-    category = s["data"].get("category", "\u0639\u0645\u0648\u0645\u06cc")
+    category = s["data"].get("category", "عمومی")
     category_key = s["data"].get("category_key", "cat_opinion")
-
-    msg = await u.message.reply_text("\u0644\u0637\u0641\u0627 \u0635\u0628\u0631 \u06a9\u0646\u06cc\u062f\u060c \u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0634\u0645\u0627 \u062f\u0631 \u062d\u0627\u0644 \u062b\u0628\u062a \u0648 \u062a\u062d\u0644\u06cc\u0644 \u0627\u0633\u062a...")
+    msg = await u.message.reply_text("لطفا صبر کنید، درخواست شما در حال ثبت و تحلیل است...")
 
     try:
         analysis = analyze_with_gemini(text, category)
 
         if not analysis.get("is_valid", True):
+            reason = analysis.get("invalid_reason", NAMSHAKHAS)
             await msg.edit_text(
-                f"\u067e\u06cc\u0627\u0645 \u0634\u0645\u0627 \u0642\u0627\u0628\u0644 \u067e\u06cc\u06af\u06cc\u0631\u06cc \u0646\u06cc\u0633\u062a.\n\n\u062f\u0644\u06cc\u0644: {analysis.get('invalid_reason', '\u0646\u0627\u0645\u0634\u062e\u0635')}\n\n\u0644\u0637\u0641\u0627 \u0645\u062a\u0646 \u0648\u0627\u0642\u0639\u06cc\u200c\u062a\u0631\u06cc \u0628\u0627 \u062c\u0632\u0626\u06cc\u0627\u062a \u0628\u06cc\u0634\u062a\u0631 \u0627\u0631\u0633\u0627\u0644 \u06a9\u0646\u06cc\u062f.",
+                f"پیام شما قابل پیگیری نیست.\n\nدلیل: {reason}\n\nلطفا متن واقعی‌تری با جزئیات بیشتر ارسال کنید.",
                 reply_markup=back_kb()
             )
             return
 
         code = gen_code()
         now = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
-
+        username = u.effective_user.username or NAMSHAKHAS
         sub = {
-            "code": code,
-            "user_id": uid,
-            "username": u.effective_user.username or "\u0646\u0627\u0634\u0646\u0627\u0633",
-            "category": category,
-            "category_key": category_key,
+            "code": code, "user_id": uid, "username": username,
+            "category": category, "category_key": category_key,
             "original_text": text,
-            "title": analysis.get("title", "\u0628\u062f\u0648\u0646 \u0639\u0646\u0648\u0627\u0646"),
+            "title": analysis.get("title", BEDOON_ONVAN),
             "issue_type": analysis.get("issue_type", "-"),
             "subcategory": analysis.get("subcategory", "-"),
             "urgency": analysis.get("urgency", 5),
             "impact": analysis.get("impact", 5),
             "priority_score": analysis.get("priority_score", 50),
-            "location": analysis.get("location", "\u0646\u0627\u0645\u0634\u062e\u0635"),
-            "responsible_department": analysis.get("responsible_department", "\u0646\u0627\u0645\u0634\u062e\u0635"),
+            "location": analysis.get("location", NAMSHAKHAS),
+            "responsible_department": analysis.get("responsible_department", NAMSHAKHAS),
             "summary": analysis.get("summary", "-"),
-            "status": "received",
-            "date": now
+            "status": "received", "date": now
         }
-
         submissions[code] = sub
-        if uid not in user_submissions:
-            user_submissions[uid] = []
-        user_submissions[uid].append(code)
+        user_submissions.setdefault(uid, []).append(code)
         clear_state(uid)
 
-        # Simple clean response to user
+        summ = sub["summary"]
         response = (
-            "\u2705 \u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0634\u0645\u0627 \u0628\u0627 \u0645\u0648\u0641\u0642\u06cc\u062a \u062b\u0628\u062a \u0634\u062f.\n\n"
-            f"\U0001f516 \u06a9\u062f \u067e\u06cc\u06af\u06cc\u0631\u06cc: {code}\n\n"
-            f"\U0001f4cb \u062e\u0644\u0627\u0635\u0647:\n{sub['summary']}\n\n"
-            "\U0001f4e8 \u062f\u0631\u062e\u0648\u0627\u0633\u062a \u0634\u0645\u0627 \u0628\u0647 \u0633\u0627\u0632\u0645\u0627\u0646 \u0645\u0631\u0628\u0648\u0637\u0647 \u0627\u0631\u0633\u0627\u0644 \u062e\u0648\u0627\u0647\u062f \u0634\u062f."
+            "✅ درخواست شما با موفقیت ثبت شد.\n\n"
+            f"🔖 کد پیگیری: {code}\n\n"
+            f"📋 خلاصه:\n{summ}\n\n"
+            "📨 درخواست شما به سازمان مربوطه ارسال خواهد شد."
         )
         await msg.edit_text(response, reply_markup=main_kb())
-
-        # Send detailed report to channel/admin
         await send_to_channel(c, sub)
 
     except Exception as e:
         logger.error(f"Error: {e}")
-        await msg.edit_text("\u062e\u0637\u0627\u06cc\u06cc \u0631\u062e \u062f\u0627\u062f. \u0644\u0637\u0641\u0627 \u062f\u0648\u0628\u0627\u0631\u0647 \u062a\u0644\u0627\u0634 \u06a9\u0646\u06cc\u062f.", reply_markup=back_kb())
+        await msg.edit_text("خطایی رخ داد. لطفا دوباره تلاش کنید.", reply_markup=back_kb())
 
 def analyze_with_gemini(text, category):
-    prompt = f"""\u062a\u0648 \u0633\u06cc\u0633\u062a\u0645 \u0647\u0648\u0634 \u0645\u0635\u0646\u0648\u0639\u06cc \u062a\u062d\u0644\u06cc\u0644 \u0628\u0627\u0632\u062e\u0648\u0631\u062f \u0634\u0647\u0631\u0648\u0646\u062f\u06cc \u0647\u0633\u062a\u06cc.\n\u067e\u06cc\u0627\u0645 \u0634\u0647\u0631\u0648\u0646\u062f \u0631\u0627 \u062a\u062d\u0644\u06cc\u0644 \u06a9\u0646. \u0641\u0642\u0637 JSON \u062e\u0631\u0648\u062c\u06cc \u0628\u062f\u0647:\n\n{{\n  \"title\": \"\u0639\u0646\u0648\u0627\u0646 \u06a9\u0648\u062a\u0627\u0647 \u062d\u062f\u0627\u06a9\u062b\u0631 8 \u06a9\u0644\u0645\u0647\",\n  \"issue_type\": \"\u06cc\u06a9\u06cc \u0627\u0632: \u0632\u06cc\u0631\u0633\u0627\u062e\u062a | \u062d\u0645\u0644\u200c\u0648\u0646\u0642\u0644 | \u0628\u0647\u062f\u0627\u0634\u062a | \u0622\u0645\u0648\u0632\u0634 | \u0645\u062d\u06cc\u0637 \u0632\u06cc\u0633\u062a | \u0627\u0642\u062a\u0635\u0627\u062f | \u062e\u062f\u0645\u0627\u062a \u062f\u0648\u0644\u062a\u06cc | \u0633\u0627\u06cc\u0631\",\n  \"subcategory\": \"\u062f\u0633\u062a\u0647\u200c\u0628\u0646\u062f\u06cc \u062f\u0642\u06cc\u0642\u200c\u062a\u0631 \u0645\u062b\u0644 \u0622\u0628\u060c \u0628\u0631\u0642\u060c \u062c\u0627\u062f\u0647\u060c \u0627\u06cc\u0646\u062a\u0631\u0646\u062a\",\n  \"urgency\": \u0639\u062f\u062f 1 \u062a\u0627 10,\n  \"impact\": \u0639\u062f\u062f 1 \u062a\u0627 10,\n  \"priority_score\": \u0639\u062f\u062f 1 \u062a\u0627 100,\n  \"location\": \"\u0634\u0647\u0631 \u06cc\u0627 \u0645\u0646\u0637\u0642\u0647 \u0627\u06af\u0631 \u0630\u06a9\u0631 \u0634\u062f\u0647 \u0648\u06af\u0631\u0646\u0647 \u0646\u0627\u0645\u0634\u062e\u0635\",\n  \"responsible_department\": \"\u0646\u0627\u0645 \u06a9\u0627\u0645\u0644 \u0633\u0627\u0632\u0645\u0627\u0646 \u06cc\u0627 \u0648\u0632\u0627\u0631\u062a\u062e\u0627\u0646\u0647 \u0645\u0633\u0626\u0648\u0644 \u0628\u0647 \u0641\u0627\u0631\u0633\u06cc\",\n  \"summary\": \"\u062e\u0644\u0627\u0635\u0647 2 \u062c\u0645\u0644\u0647\u200c\u0627\u06cc \u0627\u0632 \u0645\u0634\u06a9\u0644\",\n  \"is_valid\": true \u06cc\u0627 false,\n  \"invalid_reason\": \"\u0627\u06af\u0631 is_valid=false \u062f\u0644\u06cc\u0644 \u0631\u0627 \u0628\u0646\u0648\u06cc\u0633 \u0648\u06af\u0631\u0646\u0647 \u062e\u0627\u0644\u06cc\"\n}}\n\n\u062f\u0633\u062a\u0647: {category}\n\u067e\u06cc\u0627\u0645 \u0634\u0647\u0631\u0648\u0646\u062f: {text}"""
-
+    prompt = (
+        "تو سیستم هوش مصنوعی تحلیل بازخورد شهروندی هستی.\n"
+        "پیام شهروند را تحلیل کن. فقط JSON خروجی بده:\n\n"
+        "{\n"
+        '  "title": "عنوان کوتاه حداکثر 8 کلمه",\n'
+        '  "issue_type": "یکی از: زیرساخت | حمل‌ونقل | بهداشت | آموزش | محیط زیست | اقتصاد | خدمات دولتی | سایر",\n'
+        '  "subcategory": "دسته‌بندی دقیق‌تر مثل آب، برق، جاده",\n'
+        '  "urgency": عدد 1 تا 10,\n'
+        '  "impact": عدد 1 تا 10,\n'
+        '  "priority_score": عدد 1 تا 100,\n'
+        '  "location": "شهر یا منطقه اگر ذکر شده وگرنه نامشخص",\n'
+        '  "responsible_department": "نام کامل سازمان مسئول به فارسی",\n'
+        '  "summary": "خلاصه 2 جمله‌ای از مشکل",\n'
+        '  "is_valid": true یا false,\n'
+        '  "invalid_reason": "اگر is_valid=false دلیل را بنویس وگرنه خالی"\n'
+        "}\n\n"
+        f"دسته: {category}\n"
+        f"پیام شهروند: {text}"
+    )
     r = requests.post(GEMINI_URL, json={"contents": [{"parts": [{"text": prompt}]}]}, timeout=60)
     r.raise_for_status()
     raw = r.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
-    match = re.search(r'{[^}]*}|{[\s\S]*}', raw)
+    match = re.search(r"{[\s\S]*?}", raw)
     if match:
         return json.loads(match.group())
     return json.loads(raw)
@@ -274,22 +283,33 @@ async def send_to_channel(c, sub):
         return
     try:
         urgency = sub["urgency"]
-        urgency_emoji = "\U0001f534" if urgency >= 8 else "\U0001f7e1" if urgency >= 5 else "\U0001f7e2"
+        ue = "🔴" if urgency >= 8 else "🟡" if urgency >= 5 else "🟢"
+        priority = sub.get("priority_score", 0)
+        code = sub["code"]
+        cat = sub["category"]
+        title = sub["title"]
+        itype = sub["issue_type"]
+        subcat = sub["subcategory"]
+        dept = sub["responsible_department"]
+        loc = sub["location"]
+        dt = sub["date"]
+        summ = sub["summary"]
+        orig = sub["original_text"][:600]
         text = (
-            f"\U0001f4e8 \u06af\u0632\u0627\u0631\u0634 \u062c\u062f\u06cc\u062f \u0634\u0647\u0631\u0648\u0646\u062f\u06cc\n"
-            f"{'\u2500'*30}\n"
-            f"\U0001f516 \u06a9\u062f: {sub['code']}\n"
-            f"\U0001f5c2 \u062f\u0633\u062a\u0647: {sub['category']}\n"
-            f"\U0001f4cc \u0639\u0646\u0648\u0627\u0646: {sub['title']}\n"
-            f"\U0001f539 \u0646\u0648\u0639: {sub['issue_type']} \u2190 {sub['subcategory']}\n"
-            f"\U0001f3db \u0633\u0627\u0632\u0645\u0627\u0646: {sub['responsible_department']}\n"
-            f"\u26a1 \u0627\u0648\u0631\u0698\u0627\u0646\u0633\u06cc\u062a: {urgency_emoji} {urgency}/10\n"
-            f"\U0001f3af \u0627\u0645\u062a\u06cc\u0627\u0632: {sub.get('priority_score', 0)}/100\n"
-            f"\U0001f4cd \u0645\u0648\u0642\u0639\u06cc\u062a: {sub['location']}\n"
-            f"\U0001f4c5 \u062a\u0627\u0631\u06cc\u062e: {sub['date']}\n"
-            f"{'\u2500'*30}\n"
-            f"\U0001f4dd \u062e\u0644\u0627\u0635\u0647:\n{sub['summary']}\n\n"
-            f"\U0001f4ac \u0645\u062a\u0646 \u0627\u0635\u0644\u06cc:\n{sub['original_text'][:600]}"
+            f"📨 گزارش جدید شهروندی\n"
+            f"{SEP}\n"
+            f"🔖 کد: {code}\n"
+            f"🗂 دسته: {cat}\n"
+            f"📌 عنوان: {title}\n"
+            f"🔹 نوع: {itype} ← {subcat}\n"
+            f"🏛 سازمان: {dept}\n"
+            f"⚡ اورژانسیت: {ue} {urgency}/10\n"
+            f"🎯 امتیاز: {priority}/100\n"
+            f"📍 موقعیت: {loc}\n"
+            f"📅 تاریخ: {dt}\n"
+            f"{SEP}\n"
+            f"📝 خلاصه:\n{summ}\n\n"
+            f"💬 متن اصلی:\n{orig}"
         )
         await c.bot.send_message(chat_id=target, text=text)
     except Exception as e:
